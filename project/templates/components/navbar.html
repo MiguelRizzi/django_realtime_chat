@@ -1,7 +1,7 @@
 {% load static %}
 <nav id="main-nav" class="navbar navbar-expand-md navbar-dark bg-dark px-4">
 <div class="container-fluid px-4">
-    <a class="navbar-brand" href="">
+    <a class="navbar-brand" href="{% url 'chat:index' %}">
         Django Realtime Chat
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
         <hr>
         <ul class="navbar-nav fs-5 fw-bolder" id="navbarList">
             <li class="nav-item scale">
-                <a class="nav-link fw-bold" href="">Home</i></a>
+                <a class="nav-link fw-bold" href="{% url 'chat:index' %}">Home</i></a>
             </li>
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown pt-3 pt-md-0">

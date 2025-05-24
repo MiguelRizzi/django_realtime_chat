@@ -10,12 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+
 # sys.path to add the path of the "apps" folder
 import sys
 from pathlib import Path
 
+# For the LOGIN variables.
+from django.urls import reverse_lazy
+
 # environ to read the .env file
 import environ
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -49,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # My apps
     'users.apps.UsersConfig',
+    'chat.apps.ChatConfig',
     # Third-party apps
     'widget_tweaks',
 ]
@@ -140,3 +146,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login
+LOGIN_URL = reverse_lazy("users:login")
+LOGIN_REDIRECT_URL = reverse_lazy("chat:index")

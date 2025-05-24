@@ -19,11 +19,11 @@ class CustomLoginView(LoginView):
 
 
 class CustomLogoutView(LogoutView, LoginRequiredMixin):
-    template_name = "base.html"
+    next_page = "chat:index"
 
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
-        return redirect ('users:login')   
+        return super().dispatch(request, *args, **kwargs)
+        
      
 
 class CustomSignupView(View):
