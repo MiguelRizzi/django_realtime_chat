@@ -17,8 +17,20 @@
                 <li class="nav-item dropdown pt-3 pt-md-0">
                     <a class="nav-link dropdown-toggle username scale fw-bold" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ user.username }}
+                        <span class="position-relative">
+                            {% if user.avatar.image %}
+                                <img src="{{ user.avatar.image.url }}" class="avatar-img" alt="{{ user.username }}" >
+                            {% else %}
+                                <img src="{% static 'img/avatar-default.png' %}" class="avatar-img" alt="{{ user.username }}">
+                            {% endif %}
+                        </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-center text-md-start" aria-labelledby="navbarDropdownMenuLink">
+                        {% if not user.avatar %}
+                        <li><a class="dropdown-item" hx-get="{% url 'users:avatar_create' %}" hx-target="#dialog">My avatar</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" hx-get="{% url 'users:avatar_detail' user.avatar.id %}" hx-target="#dialog">My avatar</a></li>
+                        {% endif %}
                         <li>
                             <button type="submit" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Log out</button>      
                         </li>
