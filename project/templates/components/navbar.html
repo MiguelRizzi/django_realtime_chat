@@ -1,0 +1,61 @@
+{% load static %}
+<nav id="main-nav" class="navbar navbar-expand-md navbar-dark bg-dark px-4">
+<div class="container-fluid px-4">
+    <a class="navbar-brand" href="">
+        Django Realtime Chat
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center justify-content-md-end" id="navbarNav">
+        <hr>
+        <ul class="navbar-nav fs-5 fw-bolder" id="navbarList">
+            <li class="nav-item scale">
+                <a class="nav-link fw-bold" href="">Home</i></a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item dropdown pt-3 pt-md-0">
+                    <a class="nav-link dropdown-toggle username scale fw-bold" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-center text-md-start" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <button type="submit" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Log out</button>      
+                        </li>
+                    </ul>
+                </li>
+            {% else %}
+            <li class="nav-item scale">
+                <a class="nav-link fw-bold" href="{% url 'users:login' %}">Log in</a>
+            </li>  
+            <li class="nav-item scale">
+                <a class="nav-link fw-bold" href="{% url 'users:signup' %}">Sign up</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <!-- Modal confirm logout -->
+    <div class="modal fade pad-bottom" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="logoutModalLabel{{ object.id }}">Log out</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            Do you want to log out?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <form action="{% url 'users:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Log out</button>
+            </form>
+        </div>
+        </div>
+        </div>
+    </div>
+{% endif %}
+</nav>
